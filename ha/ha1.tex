@@ -26,11 +26,37 @@
 	документов с оценками $4$ и $3$ во всей тестовой коллекции равно $4$. Посчитайте среднее 
 	значение $DCG@3$. В данном случае, используйте пятибалльную шкалу релевантности
 	
+	\begin{align*}
+		&F = TODO \\
+		&MAP = TODO \\
+		&DGC@3 = TODO
+	\end{align*}
+	
 	\item Выпишите формулу для метрики $ERR$. Дайте определение ее составляющим. Объясните 
 	смысл каждой составляющей.
+	
+	\begin{equation*}
+		ERR = \sum\limits_{k = 1}^{N}\frac{1}{k}\cdot P(PR = \frac{1}{k}) = 
+		\sum\limits_{k = 1}^{N}\frac{1}{k}\cdot \varTheta^{k - 1}\cdot R_k \prod\limits_{i = 1}^ {k - 1}(1 - R_i) 
+	\end{equation*}
+	Составляющие:
+	\begin{enumerate}
+		\item $N$  
+		\item $k$
+		\item $\varTheta$
+		\item $R_k$
+		\item $P(PR = \frac{1}{k})$
+	\end{enumerate}
 
 	\item Назовите пять онлайн метрик. Объясните, как они отражают качество поиска. Для 
 	каждой метрики приведите контрпример.
+	\begin{itemize}
+		\item Name. Description. Example
+		\item Name. Description. Example
+		\item Name. Description. Example
+		\item Name. Description. Example
+		\item Name. Description. Example
+	\end{itemize}
 	
 	\item $Multileaving$ [1] – это метод оценки качества поиска (онлайн), аналогичный 
 	интерливингу, но работающий с $n > 2$ различными выдачами. Выпишите алгоритм работы 
