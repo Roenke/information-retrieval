@@ -66,6 +66,40 @@
 		best & 1.60 & 14 & 0 & 17 \\
 	\end{tabular}
 	
+	\textit{Решение.} Определим веса TF-IDF для каждого из документов ($d_i = v (document \ i)$).
+	\begin{align*}
+		d_1 &= \{27 \cdot 1.65, 3 \cdot 2.08, 0 \cdot 1.62, 14 \cdot 1.60\} = \{44.55, 6.24, 
+		0.00, 22.40\} \\
+		d_2 &= \{4 \cdot 1.65, 33 \cdot 2.08, 33 \cdot 1.62, 0 \cdot 1.60\} = \{6.60, 68.64, 
+		53.46, 0.00\} \\
+		d_3 &= \{24 \cdot 1.65, 0 \cdot 2.08, 29 \cdot 1.62, 17 \cdot 1.60\} = \{39.60, 0.00, 
+		46.98, 27.20\}
+	\end{align*}
+	
+	А так же вектор для запроса: 
+	\begin{align*}
+		v(q) = \{1.65, 0.00, 1.62, 0.00\}
+	\end{align*}
+	
+	Осталось вычислить значения $sim(d_i, v(q))$ и ранжировать запросы.
+	\begin{equation*}
+		sim (d_i, v(q)) = \frac{d_i \cdot v(q)}{||d_i||\cdot ||v(q)||}
+	\end{equation*}
+	\begin{align*}
+		sim(d_1, v(q)) &= \frac{44.55 \cdot 1.65}{\sqrt{44.55^2 + 6.24^2 + 22.40^2} \cdot 
+				\sqrt{1.65^2 + 1.62^2}} = 0.63 \\
+		sim(d_2, v(q)) &= \frac{6.60 \cdot 1.65 + 53.46\cdot 1.62}{\sqrt{6.60^2 + 68.64^2 + 
+				53.46^2} \cdot \sqrt{1.65^2 + 1.62^2}} = 0.48 \\
+		sim(d_3, v(q)) &= \frac{39.60 \cdot 1.65 + 46.98\cdot 1.62}{\sqrt{39.60^2 + 46.98^2 + 
+				27.20^2} \cdot \sqrt{1.65^2 + 1.62^2}} = 0.91 \\
+	\end{align*}
+	Таким образом, ранжирование будет следующим:
+	\begin{enumerate}
+		\item[1:] Документ 3
+		\item[2:] Документ 1
+		\item[3:] Документ 2
+	\end{enumerate}
+	
 	\item \textbf{[5pt]} Рассмотрим следующий запрос и три результата.
 	\begin{enumerate}
 		\item[Q] information retrieval course
