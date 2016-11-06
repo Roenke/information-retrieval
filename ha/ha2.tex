@@ -307,4 +307,42 @@
 	Выпишите сглаженную униграмную языковую модель для каждого документа. Используйте сглаживание 
 	\textit{Jelinek-Mercer} с параметром $\lambda = 0.5$. Отранжируйте эти документы по запросу 
 	\textit{"many words"}.
+	
+	\textit{Решение.} Во первых выпишем формулу для того, чтобы оценить ранг документа:
+	\begin{equation*}
+		P(q \ |\ M_d) = \prod\limits_{t\in q}P_s(t\ |\ M_d)
+	\end{equation*}
+	
+	В нашем случае множители правой части определяются выражением:
+	\begin{equation*}
+		P_s(t\ |\ M_d) = \lambda P(t\ |\ M_d) + (1 - \lambda) P(t\ |\ M_c)
+	\end{equation*}
+	
+	где $P(t\ |\ M_d) = \dfrac{tf(t, d)}{dl(d)}$, а $P(t\ |\ M_c) = \dfrac{cf(t)}{cl}$
+	
+	Для того, чтобы применить это сглаживание нам нужно значить размер коллекции термов($cl$), а так же частоты термов запроса в этой коллекции$cf(t)$. В нашем случае, состав коллекции определяется всеми словами $D1 \cup D2$, причем, с повторениями.
+	
+	\begin{align*}
+		cl = len(D1) + len(D2) = 13 + 11 = 24
+		cf(many) = 1
+		cf(words) = 2
+	\end{align*}
+	
+	Осталось всё подставить в формулу и вычислить:
+	\begin{align*}
+		P(q\ |\ M_{d1}) = \left[\lambda P(many\ |\ M_{d1}) + (1 - \lambda) P(many\ |\ M_c)\right] \cdot 
+		\left[\lambda P(words\ |\ M_{d1}) + (1 - \lambda) P(words\ |\ M_c)\right] = \\
+		= \left[ \lambda \frac{0}{13} + (1 - \lambda) \frac{1}{24} \right] \cdot \left[ \lambda 
+		\frac{2}{13} + (1 - \lambda) \frac{2}{24} \right] = 0.5 \frac{1}{24} \cdot \left[ 0.5 \frac{2}{13} + 0.5 \frac{2}{24} \right] = 0.021
+	\end{align*}
+	
+	\begin{align*}
+	P(q\ |\ M_{d2}) = \left[\lambda P(many\ |\ M_{d2}) + (1 - \lambda) P(many\ |\ M_c)\right] \cdot 
+	\left[\lambda P(words\ |\ M_{d2}) + (1 - \lambda) P(words\ |\ M_c)\right] = \\
+	= \left[ \lambda \frac{1}{11} + (1 - \lambda) \frac{1}{24} \right] \cdot \left[ \lambda 
+	\frac{0}{11} + (1 - \lambda) \frac{2}{24} \right] = \left[ 0.5 \frac{1}{11} + 0.5 \frac{1}{24} \right] \cdot 0.5 \frac{2}{24} = 0.020
+	\end{align*}
+	
+	Таким образом ранг первого документа будет выше, чем ранг второго
+	
 \end{enumerate}
